@@ -1,0 +1,38 @@
+{
+  "name": "location_field",
+  "version": "1.0.0",
+  "description": "React location field component, wired with Google's API for autocomplete functionality.",
+  "main": "src/javascripts/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/karma start",
+    "serve": "node_modules/.bin/webpack-dev-server",
+    "lint": "./node_modules/.bin/eslint ./src/javascripts/index.js"
+  },
+  "author": "Jennifer Sardina <jenni.sardina@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "enzyme": "^2.7.1",
+    "eslint": "^3.13.1",
+    "eslint-plugin-react": "^6.9.0",
+    "jasmine": "^2.5.3",
+    "jasmine-core": "^2.5.2",
+    "json-loader": "^0.5.4",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-webpack": "^2.0.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "react": "^15.4.2"
+  }
+}
