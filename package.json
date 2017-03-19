@@ -34,5 +34,9 @@
   },
   "dependencies": {
     "react": "^15.4.2"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }

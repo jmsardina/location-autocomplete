@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./src/javascripts/index.js",
+  entry: "./src/javascripts/location-autocomplete.jsx",
   output: {
     path: "./",
     filename: "bundle.js"
@@ -7,7 +7,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.js$|.jsx$/,
         exclude: /node_modules/,
         loader: "babel-loader",
         query:
