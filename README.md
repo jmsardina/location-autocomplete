@@ -8,7 +8,9 @@ LocationAutocomplete is a tested React component that introduces an input field 
 - allows multiple instances to be used on single page, without importing autocomplete library multiple times
 
 ### Usage:
-Install the package by running `npm install location_field`.
+Install the package by running `npm install location-autocomplete`.
+
+`import LocationAutocomplete from 'location-autocomplete';`
 
 Simply use the component and set the styles to fit your needs:
 ```jsx
@@ -61,7 +63,6 @@ After cloning the repo, `cd` into directory and run `npm install`.
 __Running the server:__
 1. Create an `index.html` file to mount your component:
 ```html
-
 <html>
   <head>
     <meta charset="utf-8">
@@ -73,7 +74,7 @@ __Running the server:__
 </html>
 ```
 
-2. For the purpose of testing locally, you can use `location-autocomplete.jsx` to mount the component.  At the top of `location-autocomplete.jsx`, import React DOM, which will allow us to mount the component:
+2. For the purpose of testing locally, you can use `location-autocomplete.jsx` to mount the component.  At the top of `index.js`, import React DOM, which will allow us to mount the component:
 ```jsx
 import ReactDOM from 'react-dom;'
 ```

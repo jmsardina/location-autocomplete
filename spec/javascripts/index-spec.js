@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import LocationAutocomplete from '../../src/javascripts/location-autocomplete.jsx';
+import LocationAutocomplete from '../../src/javascripts/index.js';
 
 describe('<LocationAutocomplete />', function() {
   beforeEach(function() {
