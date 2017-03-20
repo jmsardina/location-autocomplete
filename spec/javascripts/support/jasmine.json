@@ -1,0 +1,7 @@
+{
+  "spec_dir": "spec/javascripts",
+  "spec_files": [
+    "**/*[sS]pec.js",
+    "**/*[sS]pec.jsx"
+  ]
+}
