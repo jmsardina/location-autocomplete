@@ -1,5 +1,5 @@
 {
-  "name": "location_field",
+  "name": "location-autocomplete",
   "version": "1.0.0",
   "description": "React location field component, wired with Google's API for autocomplete functionality.",
   "main": "src/javascripts/index.js",

@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./src/javascripts/location-autocomplete.jsx",
+  entry: "./src/javascripts/index.js",
   output: {
     path: "./",
     filename: "bundle.js"
