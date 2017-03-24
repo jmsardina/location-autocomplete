@@ -75,6 +75,7 @@ var LocationAutocomplete = function (_React$Component) {
       // eslint-disable-next-line no-undef
       this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
       this.autocomplete.addListener("place_changed", this.props.onDropdownSelect);
+      this.props.targetArea && this.geolocate();
     }
   }, {
     key: "geolocate",
@@ -89,15 +90,6 @@ var LocationAutocomplete = function (_React$Component) {
             var place = results[0].geometry.location;
 
             _this.setBounds(place);
-          });
-        } else if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-            var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            _this.setBounds(geolocation);
           });
         }
       }
@@ -128,8 +120,7 @@ var LocationAutocomplete = function (_React$Component) {
           _this4.input = input;
         },
         value: this.props.value,
-        onChange: this.props.onChange,
-        onFocus: this.geolocate
+        onChange: this.props.onChange
       });
     }
   }], [{
@@ -143,7 +134,8 @@ var LocationAutocomplete = function (_React$Component) {
 }(_react2.default.Component);
 
 LocationAutocomplete.defaultProps = {
-  locationType: "geocode"
+  locationType: "geocode",
+  placeholder: '' // overrides Google's default placeholder
 };
 
 LocationAutocomplete.propTypes = {
