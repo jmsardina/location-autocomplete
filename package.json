@@ -1,17 +1,21 @@
 {
   "name": "location-autocomplete",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "description": "React location field component, wired with Google's API for autocomplete functionality.",
-  "main": "src/javascripts/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/karma start",
+    "build": "./node_modules/.bin/babel src/javascripts/location-autocomplete.jsx --out-file index.js",
+    "bundle": "webpack ./src/javascripts/index.jsx bundle.js",
     "serve": "node_modules/.bin/webpack-dev-server",
-    "lint": "./node_modules/.bin/eslint ./src/javascripts/index.js"
+    "test": "node_modules/.bin/karma start --single-run",
+    "lint": "./node_modules/.bin/eslint ./src/javascripts/** --ext .js --ext .jsx",
+    "test:watch": "node_modules/.bin/karma start",
+    "lint:test": "./node_modules/.bin/eslint ./spec/javascripts/** --ext .js --ext .jsx"
   },
   "author": "Jennifer Sardina <jenni.sardina@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-polyfill": "^6.20.0",
@@ -37,6 +41,7 @@
   },
   "pre-commit": [
     "lint",
-    "test"
+    "test",
+    "lint:test"
   ]
 }

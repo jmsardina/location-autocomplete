@@ -1,18 +1,18 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import LocationAutocomplete from '../../src/javascripts/index.js';
+import LocationAutocomplete from '../../src/javascripts/location-autocomplete.jsx';
 
 describe('<LocationAutocomplete />', function() {
   beforeEach(function() {
     this.handleChange = () => {};
-    this.handleDropdownSelect = () => {};
+    this.onDropdownSelect = () => {};
 
     this.render = function() {
       this.wrapper = mount(
         <LocationAutocomplete
           value='some value'
           onChange={this.handleChange}
-          handleDropdownSelect={this.handleDropdownSelect}
+          onDropdownSelect={this.onDropdownSelect}
           googleAPIKey="someKey"
         />
       );
@@ -61,7 +61,7 @@ describe('<LocationAutocomplete />', function() {
       expect(document.getElementById('location-autocomplete-library')).toEqual(null);
     });
 
-    it('binds the handleDropdownSelect handler', function() {
+    it('binds the onDropdownSelect handler', function() {
       const autocomplete = spyOn(google.maps.places, 'Autocomplete').and.returnValue({
         addListener: function() { }
       });
@@ -74,7 +74,7 @@ describe('<LocationAutocomplete />', function() {
       );
       expect(autocomplete().addListener).toHaveBeenCalledWith(
         'place_changed',
-        this.handleDropdownSelect
+        this.onDropdownSelect
       );
     });
 
@@ -87,7 +87,7 @@ describe('<LocationAutocomplete />', function() {
           <LocationAutocomplete
             locationType='(regions)'
             onChange={this.handleChange}
-            handleDropdownSelect={this.handleDropdownSelect}
+            onDropdownSelect={this.onDropdownSelect}
             googleAPIKey="someKey"
           />
         );

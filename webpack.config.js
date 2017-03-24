@@ -1,5 +1,9 @@
 module.exports = {
-  entry: "./src/javascripts/index.js",
+  entry: [
+    './src/javascripts/polyfill.js',
+    './src/javascripts/location-autocomplete.jsx',
+    './src/javascripts/index.jsx'
+  ],
   output: {
     path: "./",
     filename: "bundle.js"
@@ -12,7 +16,7 @@ module.exports = {
         loader: "babel-loader",
         query:
           {
-            presets: ["react"]
+            presets: ["react", "es2015", "env"]
           }
       }
     ]

@@ -46,7 +46,7 @@ class LocationAutocomplete extends React.Component {
   initAutocomplete() {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
-    this.autocomplete.addListener("place_changed", this.props.handleDropdownSelect);
+    this.autocomplete.addListener("place_changed", this.props.onDropdownSelect);
   }
 
   geolocate() {
@@ -91,12 +91,11 @@ class LocationAutocomplete extends React.Component {
         name={this.props.name}
         id={this.props.id}
         placeholder={this.props.placeholder}
-        classNames={`${this.props.classNames} location-field-autocomplete-component`}
+        className={`${this.props.className} location-field-autocomplete-component`}
         ref={(input) => { this.input = input; }}
         value={this.props.value}
         onChange={this.props.onChange}
         onFocus={this.geolocate}
-        style={this.props.style}
       />
     );
   }
@@ -110,13 +109,12 @@ LocationAutocomplete.propTypes = {
   name: React.PropTypes.string,
   id: React.PropTypes.string,
   placeholder: React.PropTypes.string,
-  classNames: React.PropTypes.string,
-  style: React.PropTypes.object,
+  className: React.PropTypes.string,
   value: React.PropTypes.string,
   targetArea: React.PropTypes.string,
   locationType: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
-  handleDropdownSelect: React.PropTypes.func.isRequired,
+  onDropdownSelect: React.PropTypes.func.isRequired,
   googleAPIKey: React.PropTypes.string,
   googlePlacesLibraryURL: React.PropTypes.string
 };
