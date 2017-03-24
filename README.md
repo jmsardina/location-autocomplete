@@ -42,7 +42,10 @@ Instantiate your component and set the styles to fit your needs:
 onDropdownSelect() {
   // this will give you access to the entire location object, including
   // the `place_id` and `address_components`
-  const place = this.getPlace();
+  const place = this.autocomplete.getPlace();
+
+  // this will return a reference to the input field
+  const inputField = this.input;
 
   // other awesome stuff
 }
