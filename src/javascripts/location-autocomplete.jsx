@@ -36,8 +36,8 @@ class LocationAutocomplete extends React.Component {
       scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${this.props.googleAPIKey}&libraries=places&call`;
     } else if (this.props.googlePlacesLibraryURL) {
       scriptTag.src = this.props.googlePlacesLibraryURL;
-
     }
+
     (document.head || document.body).appendChild(scriptTag);
 
     scriptTag.addEventListener('load', () => { _this.initAutocomplete(); });
@@ -46,7 +46,7 @@ class LocationAutocomplete extends React.Component {
   initAutocomplete() {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
-    this.autocomplete.addListener('place_changed', this.props.onDropdownSelect.bind(this));
+    this.autocomplete.addListener('place_changed', () => { this.props.onDropdownSelect(this); });
     this.props.targetArea && this.geolocate();
   }
 

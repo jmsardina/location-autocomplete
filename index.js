@@ -63,6 +63,7 @@ var LocationAutocomplete = function (_React$Component) {
       } else if (this.props.googlePlacesLibraryURL) {
         scriptTag.src = this.props.googlePlacesLibraryURL;
       }
+
       (document.head || document.body).appendChild(scriptTag);
 
       scriptTag.addEventListener('load', function () {
@@ -72,9 +73,13 @@ var LocationAutocomplete = function (_React$Component) {
   }, {
     key: 'initAutocomplete',
     value: function initAutocomplete() {
+      var _this4 = this;
+
       // eslint-disable-next-line no-undef
       this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
-      this.autocomplete.addListener('place_changed', this.props.onDropdownSelect.bind(this));
+      this.autocomplete.addListener('place_changed', function () {
+        _this4.props.onDropdownSelect(_this4);
+      });
       this.props.targetArea && this.geolocate();
     }
   }, {
@@ -108,7 +113,7 @@ var LocationAutocomplete = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return _react2.default.createElement('input', {
         type: 'text',
@@ -117,7 +122,7 @@ var LocationAutocomplete = function (_React$Component) {
         placeholder: this.props.placeholder,
         className: this.props.className + ' location-field-autocomplete-component',
         ref: function ref(input) {
-          _this4.input = input;
+          _this5.input = input;
         },
         value: this.props.value,
         onChange: this.props.onChange

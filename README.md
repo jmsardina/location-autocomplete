@@ -39,13 +39,13 @@ Instantiate your component and set the styles to fit your needs:
 - `onDropdownSelect` -- function to handle selection of dropdown option.  This will fire when the user clicks on one of the locations for the dropdown.  You can use this function to handle updates of multiple fields.  For example, if I have two address fields -- one for venue name and one for the full address, and both of them have autocomplete functionality, then `onDropdownSelect` function allows me to manage the logic of updating both fields, by providing the autocomplete object in the context of `this`.  To test this, set a debugger inside of your `onDropdownSelect` function and type `this`:
 
 ```js
-onDropdownSelect() {
+onDropdownSelect(component) {
   // this will give you access to the entire location object, including
   // the `place_id` and `address_components`
-  const place = this.autocomplete.getPlace();
+  const place = component.autocomplete.getPlace();
 
   // this will return a reference to the input field
-  const inputField = this.input;
+  const inputField = component.input;
 
   // other awesome stuff
 }
