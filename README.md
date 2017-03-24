@@ -8,83 +8,78 @@ LocationAutocomplete is a tested React component that introduces an input field 
 - allows multiple instances to be used on single page, without importing autocomplete library multiple times
 
 ### Usage:
-Install the package by running `npm install location-autocomplete`.
+Install the package:
+```
+$ npm install location-autocomplete --save
+```
 
-`import LocationAutocomplete from 'location-autocomplete';`
+At the top of your `.jsx` file, import the component:
+```jsx
+import LocationAutocomplete from 'location-autocomplete';
+```
 
-Simply use the component and set the styles to fit your needs:
+Instantiate your component and set the styles to fit your needs:
 ```jsx
 <LocationAutocomplete
-  onChange={}
-  handleDropdownSelect={}
+  name="venue"
+  placeholder="Venue Name"
+  targetArea="New York, NY"
+  locationType="(regions)"
+  googleAPIKey="yourApiKey"
+  onChange={() => {}}
+  onDropdownSelect={() => {}}
 />
 ```
 
-__Required props:__
-- `onChange` (function)
-- `handleDropdownSelect` (function)
+#### Required props:
+- `onChange` -- function to handle field changes
+- `onDropdownSelect` -- function to handle selection of dropdown option
 
-__Required for autocomplete functionality:__
-`googleAPIKey` OR `googlePlacesLibraryURL`
-
-__Other permitted props:__
-- `name`
-- `id`
-- `placeholder`
-- `classNames`
-- `style`
-- `value`
-- `targetArea`
-- `locationType`
+#### Required props for autocomplete functionality:
 - `googleAPIKey`
 - `googlePlacesLibraryURL`
 
-To bias address predictions to a specific area, set `targetArea` to a city, state:
-```jsx
-<LocationAutocomplete
-  onChange={}
-  handleDropdownSelect={}
-  targetArea="New York, NY"
-/>
-```
-If `targetArea` is not set, the component will bias results by `currentLocation`.
+Note: Only ONE of the above is required for autocomplete functionality.  If you do not have either one, you can still instantiate the component, but it will only render a regular input field.
 
-To return a specific address type, set `locationType` to a supported location type.  For a list of all supported types, visit [supported types](https://developers.google.com/places/supported_types)
+Visit [Google's API documentation](https://developers.google.com/maps/web/) to get your Google API key.
+
+#### Other permitted props:
+- `name`
+- `id`
+- `placeholder`
+- `className`
+- `value`
+
+- `targetArea` -- "City, State" to bias results to a specific geographic location.  If this value is not set, the component will bias results by current location.  It will do this by geolocating each time the user focuses on the field.
+
+- `locationType` -- String value used to restrict results to a specific location type.  For a complete list of supported types, visit [Google's API documentation](https://developers.google.com/places/supported_types).
 
 ### Development:
-__Available Commands:__
-- `npm run test`
-- `npm run serve`
-- `npm run lint`
-
-__Installing dependencies:__
-After cloning the repo, `cd` into directory and run `npm install`.
-
-__Running the server:__
-1. Create an `index.html` file to mount your component:
-```html
-<html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div id="container" />
-    <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
-  </body>
-</html>
+Install dependencies:
+```
+$ npm install
 ```
 
-2. For the purpose of testing locally, you can use `location-autocomplete.jsx` to mount the component.  At the top of `index.js`, import React DOM, which will allow us to mount the component:
-```jsx
-import ReactDOM from 'react-dom;'
+Run tests in watch mode:
+```
+$ npm run test:watch
 ```
 
-Using `ReactDOM`, you can render the component, or multiple instances of the component.
+Run the linter:
+```
+$ npm run lint
+```
 
-### Contribute:
-1. Follow the steps under Development.
-2. Create an issue if one doesn't exist already.
-3. In your commit message, include `Reference` as a footer to include the issue number:
+Start the server:
+```
+$ npm run bundle && npm run serve
+```
+
+### Ways to Contribute:
+1. __Create an [issue](https://github.com/jmsardina/location-autocomplete/issues)__
+2. __Open a PR__
+
+Recommended commit format:
 
 ```
 Commit title
@@ -94,4 +89,3 @@ Commit title
 References:
 <Issue number>
 ```
-4. Open a PR.
