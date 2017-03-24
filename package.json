@@ -1,6 +1,6 @@
 {
   "name": "location-autocomplete",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "React location field component, wired with Google's API for autocomplete functionality.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,17 @@
     "lint:test": "./node_modules/.bin/eslint ./spec/javascripts/** --ext .js --ext .jsx"
   },
   "author": "Jennifer Sardina <jenni.sardina@gmail.com>",
+  "keywords": [
+    "location-field",
+    "autocomplete-component",
+    "react-autocomplete",
+    "google-places",
+    "google-places-autocomplete"
+  ],
+  "bugs": {
+    "url": "https://github.com/jmsardina/location-autocomplete/issues"
+  },
+  "homepage": "https://github.com/jmsardina/location-autocomplete",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.24.0",
