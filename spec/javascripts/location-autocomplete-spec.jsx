@@ -1,6 +1,9 @@
+/* global describe:false, it:false, spyOn:false, expect:false, beforeEach:false, afterEach: false, google */
+/* eslint-disable no-unused-vars*/
 import React from 'react';
-import { mount } from 'enzyme';
 import LocationAutocomplete from '../../src/javascripts/location-autocomplete.jsx';
+/* eslint-enable no-unused-vars*/
+import { mount } from 'enzyme';
 
 describe('<LocationAutocomplete />', function() {
   beforeEach(function() {
@@ -13,7 +16,7 @@ describe('<LocationAutocomplete />', function() {
           value='some value'
           onChange={this.handleChange}
           onDropdownSelect={this.onDropdownSelect}
-          googleAPIKey="someKey"
+          googleAPIKey='someKey'
         />
       );
 
@@ -65,16 +68,18 @@ describe('<LocationAutocomplete />', function() {
       const autocomplete = spyOn(google.maps.places, 'Autocomplete').and.returnValue({
         addListener: function() { }
       });
+      spyOn(this.onDropdownSelect, 'bind');
 
       spyOn(autocomplete(), 'addListener');
       this.render();
 
       expect(autocomplete).toHaveBeenCalledWith(
-        this.wrapper.find('input').node, { types: ['geocode'] }
+        this.inputField.node, { types: ['geocode'] }
       );
+
       expect(autocomplete().addListener).toHaveBeenCalledWith(
         'place_changed',
-        this.onDropdownSelect
+        this.onDropdownSelect.bind(this.inputField)
       );
     });
 
@@ -88,7 +93,7 @@ describe('<LocationAutocomplete />', function() {
             locationType='(regions)'
             onChange={this.handleChange}
             onDropdownSelect={this.onDropdownSelect}
-            googleAPIKey="someKey"
+            googleAPIKey='someKey'
           />
         );
 

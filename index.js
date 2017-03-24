@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -26,22 +26,22 @@ var LocationAutocomplete = function (_React$Component) {
 
     var _this2 = _possibleConstructorReturn(this, (LocationAutocomplete.__proto__ || Object.getPrototypeOf(LocationAutocomplete)).call(this, props, context));
 
-    _this2.geolocate = _this2.geolocate.bind(_this2);
+    _this2.geolocate.bind(_this2);
     return _this2;
   }
 
   _createClass(LocationAutocomplete, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       var _this3 = this;
 
-      var autocompleteLibrary = document.getElementById("location-autocomplete-library");
+      var autocompleteLibrary = document.getElementById('location-autocomplete-library');
 
       if (autocompleteLibrary) {
         if (this.constructor.libraryHasLoaded()) {
           this.initAutocomplete();
         } else {
-          autocompleteLibrary.addEventListener("load", function () {
+          autocompleteLibrary.addEventListener('load', function () {
             _this3.initAutocomplete();
           });
         }
@@ -52,33 +52,33 @@ var LocationAutocomplete = function (_React$Component) {
       }
     }
   }, {
-    key: "addAutocompleteLibrary",
+    key: 'addAutocompleteLibrary',
     value: function addAutocompleteLibrary() {
       var _this = this;
-      var scriptTag = document.createElement("script");
-      scriptTag.type = "text/javascript";
-      scriptTag.id = "location-autocomplete-library";
+      var scriptTag = document.createElement('script');
+      scriptTag.type = 'text/javascript';
+      scriptTag.id = 'location-autocomplete-library';
       if (this.props.googleAPIKey) {
-        scriptTag.src = "https://maps.googleapis.com/maps/api/js?key=" + this.props.googleAPIKey + "&libraries=places&call";
+        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.props.googleAPIKey + '&libraries=places&call';
       } else if (this.props.googlePlacesLibraryURL) {
         scriptTag.src = this.props.googlePlacesLibraryURL;
       }
       (document.head || document.body).appendChild(scriptTag);
 
-      scriptTag.addEventListener("load", function () {
+      scriptTag.addEventListener('load', function () {
         _this.initAutocomplete();
       });
     }
   }, {
-    key: "initAutocomplete",
+    key: 'initAutocomplete',
     value: function initAutocomplete() {
       // eslint-disable-next-line no-undef
       this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
-      this.autocomplete.addListener("place_changed", this.props.onDropdownSelect);
+      this.autocomplete.addListener('place_changed', this.props.onDropdownSelect.bind(this));
       this.props.targetArea && this.geolocate();
     }
   }, {
-    key: "geolocate",
+    key: 'geolocate',
     value: function geolocate() {
       if (this.constructor.libraryHasLoaded()) {
         var _this = this;
@@ -95,7 +95,7 @@ var LocationAutocomplete = function (_React$Component) {
       }
     }
   }, {
-    key: "setBounds",
+    key: 'setBounds',
     value: function setBounds(position) {
       // eslint-disable-next-line no-undef
       var circle = new google.maps.Circle({
@@ -106,16 +106,16 @@ var LocationAutocomplete = function (_React$Component) {
       this.autocomplete.setBounds(circle.getBounds());
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this4 = this;
 
-      return _react2.default.createElement("input", {
-        type: "text",
+      return _react2.default.createElement('input', {
+        type: 'text',
         name: this.props.name,
         id: this.props.id,
         placeholder: this.props.placeholder,
-        className: this.props.className + " location-field-autocomplete-component",
+        className: this.props.className + ' location-field-autocomplete-component',
         ref: function ref(input) {
           _this4.input = input;
         },
@@ -124,9 +124,9 @@ var LocationAutocomplete = function (_React$Component) {
       });
     }
   }], [{
-    key: "libraryHasLoaded",
+    key: 'libraryHasLoaded',
     value: function libraryHasLoaded() {
-      return typeof google !== "undefined";
+      return typeof google !== 'undefined';
     }
   }]);
 
@@ -134,7 +134,7 @@ var LocationAutocomplete = function (_React$Component) {
 }(_react2.default.Component);
 
 LocationAutocomplete.defaultProps = {
-  locationType: "geocode",
+  locationType: 'geocode',
   placeholder: '' // overrides Google's default placeholder
 };
 
