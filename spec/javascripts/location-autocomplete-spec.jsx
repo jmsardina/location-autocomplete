@@ -64,25 +64,6 @@ describe('<LocationAutocomplete />', function() {
       expect(document.getElementById('location-autocomplete-library')).toEqual(null);
     });
 
-    it('binds the onDropdownSelect handler', function() {
-      const autocomplete = spyOn(google.maps.places, 'Autocomplete').and.returnValue({
-        addListener: function() { }
-      });
-      spyOn(this.onDropdownSelect, 'bind');
-
-      spyOn(autocomplete(), 'addListener');
-      this.render();
-
-      expect(autocomplete).toHaveBeenCalledWith(
-        this.inputField.node, { types: ['geocode'] }
-      );
-
-      expect(autocomplete().addListener).toHaveBeenCalledWith(
-        'place_changed',
-        this.onDropdownSelect.bind(this.inputField)
-      );
-    });
-
     describe('when locationType is set', function() {
       it('biases autocomplete to specified locationType', function() {
         const autocomplete = spyOn(google.maps.places, 'Autocomplete').and.returnValue({

@@ -36,8 +36,8 @@ class LocationAutocomplete extends React.Component {
       scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${this.props.googleAPIKey}&libraries=places&call`;
     } else if (this.props.googlePlacesLibraryURL) {
       scriptTag.src = this.props.googlePlacesLibraryURL;
-
     }
+
     (document.head || document.body).appendChild(scriptTag);
 
     scriptTag.addEventListener('load', () => { _this.initAutocomplete(); });
@@ -46,7 +46,7 @@ class LocationAutocomplete extends React.Component {
   initAutocomplete() {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
-    this.autocomplete.addListener('place_changed', this.props.onDropdownSelect.bind(this));
+    this.autocomplete.addListener('place_changed', () => { this.props.onDropdownSelect(this); });
     this.props.targetArea && this.geolocate();
   }
 
@@ -76,17 +76,31 @@ class LocationAutocomplete extends React.Component {
     this.autocomplete.setBounds(circle.getBounds());
   }
 
+  filteredInputProps() {
+    const keysToOmit = [
+      'googleAPIKey',
+      'googlePlacesLibraryURL',
+      'onDropdownSelect',
+      'locationType',
+      'targetArea'
+    ];
+
+    return Object.keys(this.props)
+      .filter(key => !keysToOmit.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = this.props[key];
+        return obj;
+      }, {});
+  }
+
   render() {
+    const defaultInputProps = this.filteredInputProps();
+
     return (
       <input
         type='text'
-        name={this.props.name}
-        id={this.props.id}
-        placeholder={this.props.placeholder}
-        className={`${this.props.className} location-field-autocomplete-component`}
         ref={(input) => { this.input = input; }}
-        value={this.props.value}
-        onChange={this.props.onChange}
+        {...defaultInputProps}
       />
     );
   }
@@ -94,15 +108,10 @@ class LocationAutocomplete extends React.Component {
 
 LocationAutocomplete.defaultProps = {
   locationType: 'geocode',
-  placeholder: '' // overrides Google's default placeholder
+  placeholder: '' // overrides Google's default placeholder,
 };
 
 LocationAutocomplete.propTypes = {
-  name: React.PropTypes.string,
-  id: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  className: React.PropTypes.string,
-  value: React.PropTypes.string,
   targetArea: React.PropTypes.string,
   locationType: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
