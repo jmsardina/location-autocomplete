@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -111,22 +113,32 @@ var LocationAutocomplete = function (_React$Component) {
       this.autocomplete.setBounds(circle.getBounds());
     }
   }, {
-    key: 'render',
-    value: function render() {
+    key: 'filteredInputProps',
+    value: function filteredInputProps() {
       var _this5 = this;
 
-      return _react2.default.createElement('input', {
+      var keysToOmit = ['googleAPIKey', 'googlePlacesLibraryURL', 'onDropdownSelect', 'locationType', 'targetArea'];
+
+      return Object.keys(this.props).filter(function (key) {
+        return !keysToOmit.includes(key);
+      }).reduce(function (obj, key) {
+        obj[key] = _this5.props[key];
+        return obj;
+      }, {});
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this6 = this;
+
+      var defaultInputProps = this.filteredInputProps();
+
+      return _react2.default.createElement('input', _extends({
         type: 'text',
-        name: this.props.name,
-        id: this.props.id,
-        placeholder: this.props.placeholder,
-        className: this.props.className + ' location-field-autocomplete-component',
         ref: function ref(input) {
-          _this5.input = input;
-        },
-        value: this.props.value,
-        onChange: this.props.onChange
-      });
+          _this6.input = input;
+        }
+      }, defaultInputProps));
     }
   }], [{
     key: 'libraryHasLoaded',
@@ -140,15 +152,10 @@ var LocationAutocomplete = function (_React$Component) {
 
 LocationAutocomplete.defaultProps = {
   locationType: 'geocode',
-  placeholder: '' // overrides Google's default placeholder
+  placeholder: '' // overrides Google's default placeholder,
 };
 
 LocationAutocomplete.propTypes = {
-  name: _react2.default.PropTypes.string,
-  id: _react2.default.PropTypes.string,
-  placeholder: _react2.default.PropTypes.string,
-  className: _react2.default.PropTypes.string,
-  value: _react2.default.PropTypes.string,
   targetArea: _react2.default.PropTypes.string,
   locationType: _react2.default.PropTypes.string,
   onChange: _react2.default.PropTypes.func.isRequired,

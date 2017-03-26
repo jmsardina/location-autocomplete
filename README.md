@@ -36,7 +36,7 @@ Instantiate your component and set the styles to fit your needs:
 
 - `onChange` -- function to handle field changes.  This will fire on each key strike.
 
-- `onDropdownSelect` -- function to handle selection of dropdown option.  This will fire when the user clicks on one of the locations for the dropdown.  You can use this function to handle updates of multiple fields.  For example, if I have two address fields -- one for venue name and one for the full address, and both of them have autocomplete functionality, then `onDropdownSelect` function allows me to manage the logic of updating both fields, by providing the autocomplete object in the context of `this`.  To test this, set a debugger inside of your `onDropdownSelect` function and type `this`:
+- `onDropdownSelect` -- function to handle selection of dropdown option.  This will fire when the user clicks on one of the locations on the dropdown.  You can use this function to handle updates of multiple fields.
 
 ```js
 onDropdownSelect(component) {
@@ -54,15 +54,11 @@ onDropdownSelect(component) {
 Visit [Google's API documentation](https://developers.google.com/maps/web/) to get your Google API key.
 
 #### Other permitted props:
-- `name`
-- `id`
-- `placeholder`
-- `className`
-- `value`
+- Any attribute that's normally accepted on an input field (e.g. `name`, `disabled`, etc.).
 
-- `targetArea` -- "City, State" to bias results to a specific geographic location.  If this value is not set, the component will bias results by current location.  It will do this by geolocating each time the user focuses on the field.
+- `targetArea` -- "City, State" to bias results to a specific geographic location.  If this value is not set, the component will bias results by current location.
 
-- `locationType` -- String value used to restrict results to a specific location type.  For a complete list of supported types, visit [Google's API documentation](https://developers.google.com/places/supported_types).
+- `locationType` -- String value used to restrict results to a specific location type.  For a complete list of supported types, visit [Google's API documentation](https://developers.google.com/places/supported_types).  When not set, the component will include all location types.
 
 ### Development:
 Install dependencies:
@@ -83,6 +79,14 @@ $ npm run lint
 Start the server:
 ```
 $ npm run bundle && npm run serve
+```
+
+Don't forget the following commands before committing!
+```
+$ npm run test
+$ npm run lint:test
+$ npm run lint
+$ npm run build
 ```
 
 ### Ways to Contribute:
