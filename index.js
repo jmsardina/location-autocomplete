@@ -20,6 +20,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/* global google */
+
 var LocationAutocomplete = function (_React$Component) {
   _inherits(LocationAutocomplete, _React$Component);
 
@@ -77,8 +79,10 @@ var LocationAutocomplete = function (_React$Component) {
     value: function initAutocomplete() {
       var _this4 = this;
 
-      // eslint-disable-next-line no-undef
-      this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
+      var params = {};
+      if (this.props.locationType) params.types = [this.props.locationType];
+
+      this.autocomplete = new google.maps.places.Autocomplete(this.input, params);
       this.autocomplete.addListener('place_changed', function () {
         _this4.props.onDropdownSelect(_this4);
       });
@@ -151,7 +155,6 @@ var LocationAutocomplete = function (_React$Component) {
 }(_react2.default.Component);
 
 LocationAutocomplete.defaultProps = {
-  locationType: 'geocode',
   placeholder: '' // overrides Google's default placeholder,
 };
 

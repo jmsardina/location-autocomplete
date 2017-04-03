@@ -8,16 +8,17 @@ import ReactDOM from 'react-dom';
 // as locationType and targetArea to see how these affect the results.
 ReactDOM.render(
   <div>
-   <h4>Biased to Current Location</h4>
+   <h4>Biased to Brusick Township, NJ</h4>
     <LocationAutocomplete
       onChange={() =>{}}
       onDropdownSelect={()=>{ }}
       googleAPIKey='replaceWithAPIKey'
       className='location'
+      targetArea="North Brunswick Township, NJ"
       placeholder='Search in your current location.'
     />
 
-    <h4>Biased to Rome, Italy</h4>
+    <h4>Biased to establishments Rome, Italy</h4>
     <LocationAutocomplete
       onChange={() =>{}}
       onDropdownSelect={()=>{ }}
@@ -25,9 +26,10 @@ ReactDOM.render(
       googleAPIKey='replaceWithAPIKey'
       className='location'
       placeholder='Search places in Rome, Italy.'
+      locationType='establishment'
     />
 
-    <h4>Set to return all location types</h4>
+    <h4>Biased based on current location</h4>
     <LocationAutocomplete
       onChange={()=>{ }}
       onDropdownSelect={()=>{ }}
@@ -36,7 +38,7 @@ ReactDOM.render(
       placeholder='Search all location types.'
     />
 
-    <h4>Set to return regions around New York City</h4>
+    <h4>Biased to regions around New York City</h4>
     <LocationAutocomplete
       onChange={()=>{ }}
       onDropdownSelect={()=>{ }}
@@ -44,7 +46,7 @@ ReactDOM.render(
       className='location'
       locationType='(regions)'
       targetArea='New York City, NY'
-      placeholder='Search only regions in New York City.'
+      placeholder='Search regions around New York City.'
     />
   </div>,
   document.getElementById('container')
