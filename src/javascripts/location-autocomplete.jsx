@@ -1,4 +1,5 @@
 import React from 'react';
+/* global google */
 
 class LocationAutocomplete extends React.Component {
   constructor(props, context) {
@@ -44,8 +45,10 @@ class LocationAutocomplete extends React.Component {
   }
 
   initAutocomplete() {
-    // eslint-disable-next-line no-undef
-    this.autocomplete = new google.maps.places.Autocomplete(this.input, { types: [this.props.locationType] });
+    let params = {};
+    if (this.props.locationType)  params.types = [this.props.locationType];
+
+    this.autocomplete = new google.maps.places.Autocomplete(this.input, params);
     this.autocomplete.addListener('place_changed', () => { this.props.onDropdownSelect(this); });
     this.props.targetArea && this.geolocate();
   }
@@ -107,7 +110,6 @@ class LocationAutocomplete extends React.Component {
 }
 
 LocationAutocomplete.defaultProps = {
-  locationType: 'geocode',
   placeholder: '' // overrides Google's default placeholder,
 };
 
