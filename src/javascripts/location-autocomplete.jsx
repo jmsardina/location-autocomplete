@@ -2,30 +2,16 @@ import React from 'react';
 /* global google */
 
 class LocationAutocomplete extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.geolocate.bind(this);
-  }
-
   componentDidMount() {
-    const autocompleteLibrary = document.getElementById('location-autocomplete-library');
+    const libraryScript = document.getElementById('location-autocomplete-library');
 
-    if (autocompleteLibrary) {
-      if (this.constructor.libraryHasLoaded()) {
-        this.initAutocomplete();
-      } else {
-        autocompleteLibrary.addEventListener('load',  () => { this.initAutocomplete(); });
-      }
-    } else if (this.constructor.libraryHasLoaded()) {
+    if (this.libraryHasLoaded) {
       this.initAutocomplete();
+    } else if (libraryScript) {
+      libraryScript.addEventListener('load',  () => { this.initAutocomplete(); });
     } else {
       this.addAutocompleteLibrary();
     }
-  }
-
-  static libraryHasLoaded() {
-    return typeof google !== 'undefined';
   }
 
   addAutocompleteLibrary() {
@@ -34,7 +20,7 @@ class LocationAutocomplete extends React.Component {
     scriptTag.type = 'text/javascript';
     scriptTag.id = 'location-autocomplete-library';
     if (this.props.googleAPIKey) {
-      scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${this.props.googleAPIKey}&libraries=places&call`;
+      scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${this.props.googleAPIKey}&libraries=places`;
     } else if (this.props.googlePlacesLibraryURL) {
       scriptTag.src = this.props.googlePlacesLibraryURL;
     }
@@ -44,48 +30,50 @@ class LocationAutocomplete extends React.Component {
     scriptTag.addEventListener('load', () => { _this.initAutocomplete(); });
   }
 
+  setRestrictions() {
+    const { country } = this.props.componentRestrictions;
+    if (country) this.autocomplete.setComponentRestrictions({ 'country': country });
+  }
+
   initAutocomplete() {
     let params = {};
     if (this.props.locationType)  params.types = [this.props.locationType];
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input, params);
     this.autocomplete.addListener('place_changed', () => { this.props.onDropdownSelect(this); });
+
+    if (this.props.componentRestrictions) this.setRestrictions();
     this.props.targetArea && this.geolocate();
   }
 
   geolocate() {
-    if (this.constructor.libraryHasLoaded()) {
-      const _this = this;
-
+    if (this.libraryHasLoaded) {
       if (this.props.targetArea) {
-        // eslint-disable-next-line no-undef
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({address: this.props.targetArea}, (results) => {
-          const place = results[0].geometry.location;
+          const position = results[0].geometry.location;
 
-          _this.setBounds(place);
+          new google.maps.Circle({
+            center: position,
+            radius: position.coords ? position.coords.accuracy : 100
+          });
         });
       }
     }
   }
 
-  setBounds(position) {
-    // eslint-disable-next-line no-undef
-    const circle = new google.maps.Circle({
-      center: position,
-      radius: position.coords ? position.coords.accuracy : 100
-    });
-
-    this.autocomplete.setBounds(circle.getBounds());
+  get libraryHasLoaded() {
+    return typeof google !== 'undefined';
   }
 
-  filteredInputProps() {
+  get filteredInputProps() {
     const keysToOmit = [
       'googleAPIKey',
       'googlePlacesLibraryURL',
       'onDropdownSelect',
       'locationType',
-      'targetArea'
+      'targetArea',
+      'componentRestrictions'
     ];
 
     return Object.keys(this.props)
@@ -97,20 +85,18 @@ class LocationAutocomplete extends React.Component {
   }
 
   render() {
-    const defaultInputProps = this.filteredInputProps();
-
     return (
       <input
         type='text'
         ref={(input) => { this.input = input; }}
-        {...defaultInputProps}
+        {...this.filteredInputProps}
       />
     );
   }
 }
 
 LocationAutocomplete.defaultProps = {
-  placeholder: '' // overrides Google's default placeholder,
+  placeholder: '' // overrides Google's default placeholder
 };
 
 LocationAutocomplete.propTypes = {
@@ -119,7 +105,10 @@ LocationAutocomplete.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   onDropdownSelect: React.PropTypes.func.isRequired,
   googleAPIKey: React.PropTypes.string,
-  googlePlacesLibraryURL: React.PropTypes.string
+  googlePlacesLibraryURL: React.PropTypes.string,
+  componentRestrictions: React.PropTypes.shape({
+    country: React.PropTypes.arrayOf(React.PropTypes.string)
+  })
 };
 
 export default LocationAutocomplete;

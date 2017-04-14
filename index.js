@@ -25,13 +25,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var LocationAutocomplete = function (_React$Component) {
   _inherits(LocationAutocomplete, _React$Component);
 
-  function LocationAutocomplete(props, context) {
+  function LocationAutocomplete() {
     _classCallCheck(this, LocationAutocomplete);
 
-    var _this2 = _possibleConstructorReturn(this, (LocationAutocomplete.__proto__ || Object.getPrototypeOf(LocationAutocomplete)).call(this, props, context));
-
-    _this2.geolocate.bind(_this2);
-    return _this2;
+    return _possibleConstructorReturn(this, (LocationAutocomplete.__proto__ || Object.getPrototypeOf(LocationAutocomplete)).apply(this, arguments));
   }
 
   _createClass(LocationAutocomplete, [{
@@ -39,18 +36,14 @@ var LocationAutocomplete = function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
-      var autocompleteLibrary = document.getElementById('location-autocomplete-library');
+      var libraryScript = document.getElementById('location-autocomplete-library');
 
-      if (autocompleteLibrary) {
-        if (this.constructor.libraryHasLoaded()) {
-          this.initAutocomplete();
-        } else {
-          autocompleteLibrary.addEventListener('load', function () {
-            _this3.initAutocomplete();
-          });
-        }
-      } else if (this.constructor.libraryHasLoaded()) {
+      if (this.libraryHasLoaded) {
         this.initAutocomplete();
+      } else if (libraryScript) {
+        libraryScript.addEventListener('load', function () {
+          _this3.initAutocomplete();
+        });
       } else {
         this.addAutocompleteLibrary();
       }
@@ -63,7 +56,7 @@ var LocationAutocomplete = function (_React$Component) {
       scriptTag.type = 'text/javascript';
       scriptTag.id = 'location-autocomplete-library';
       if (this.props.googleAPIKey) {
-        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.props.googleAPIKey + '&libraries=places&call';
+        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.props.googleAPIKey + '&libraries=places';
       } else if (this.props.googlePlacesLibraryURL) {
         scriptTag.src = this.props.googlePlacesLibraryURL;
       }
@@ -73,6 +66,13 @@ var LocationAutocomplete = function (_React$Component) {
       scriptTag.addEventListener('load', function () {
         _this.initAutocomplete();
       });
+    }
+  }, {
+    key: 'setRestrictions',
+    value: function setRestrictions() {
+      var country = this.props.componentRestrictions.country;
+
+      if (country) this.autocomplete.setComponentRestrictions({ 'country': country });
     }
   }, {
     key: 'initAutocomplete',
@@ -86,68 +86,57 @@ var LocationAutocomplete = function (_React$Component) {
       this.autocomplete.addListener('place_changed', function () {
         _this4.props.onDropdownSelect(_this4);
       });
+
+      if (this.props.componentRestrictions) this.setRestrictions();
       this.props.targetArea && this.geolocate();
     }
   }, {
     key: 'geolocate',
     value: function geolocate() {
-      if (this.constructor.libraryHasLoaded()) {
-        var _this = this;
-
+      if (this.libraryHasLoaded) {
         if (this.props.targetArea) {
-          // eslint-disable-next-line no-undef
           var geocoder = new google.maps.Geocoder();
           geocoder.geocode({ address: this.props.targetArea }, function (results) {
-            var place = results[0].geometry.location;
+            var position = results[0].geometry.location;
 
-            _this.setBounds(place);
+            new google.maps.Circle({
+              center: position,
+              radius: position.coords ? position.coords.accuracy : 100
+            });
           });
         }
       }
     }
   }, {
-    key: 'setBounds',
-    value: function setBounds(position) {
-      // eslint-disable-next-line no-undef
-      var circle = new google.maps.Circle({
-        center: position,
-        radius: position.coords ? position.coords.accuracy : 100
-      });
-
-      this.autocomplete.setBounds(circle.getBounds());
-    }
-  }, {
-    key: 'filteredInputProps',
-    value: function filteredInputProps() {
-      var _this5 = this;
-
-      var keysToOmit = ['googleAPIKey', 'googlePlacesLibraryURL', 'onDropdownSelect', 'locationType', 'targetArea'];
-
-      return Object.keys(this.props).filter(function (key) {
-        return !keysToOmit.includes(key);
-      }).reduce(function (obj, key) {
-        obj[key] = _this5.props[key];
-        return obj;
-      }, {});
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
-
-      var defaultInputProps = this.filteredInputProps();
+      var _this5 = this;
 
       return _react2.default.createElement('input', _extends({
         type: 'text',
         ref: function ref(input) {
-          _this6.input = input;
+          _this5.input = input;
         }
-      }, defaultInputProps));
+      }, this.filteredInputProps));
     }
-  }], [{
+  }, {
     key: 'libraryHasLoaded',
-    value: function libraryHasLoaded() {
+    get: function get() {
       return typeof google !== 'undefined';
+    }
+  }, {
+    key: 'filteredInputProps',
+    get: function get() {
+      var _this6 = this;
+
+      var keysToOmit = ['googleAPIKey', 'googlePlacesLibraryURL', 'onDropdownSelect', 'locationType', 'targetArea', 'componentRestrictions'];
+
+      return Object.keys(this.props).filter(function (key) {
+        return !keysToOmit.includes(key);
+      }).reduce(function (obj, key) {
+        obj[key] = _this6.props[key];
+        return obj;
+      }, {});
     }
   }]);
 
@@ -155,7 +144,7 @@ var LocationAutocomplete = function (_React$Component) {
 }(_react2.default.Component);
 
 LocationAutocomplete.defaultProps = {
-  placeholder: '' // overrides Google's default placeholder,
+  placeholder: '' // overrides Google's default placeholder
 };
 
 LocationAutocomplete.propTypes = {
@@ -164,7 +153,10 @@ LocationAutocomplete.propTypes = {
   onChange: _react2.default.PropTypes.func.isRequired,
   onDropdownSelect: _react2.default.PropTypes.func.isRequired,
   googleAPIKey: _react2.default.PropTypes.string,
-  googlePlacesLibraryURL: _react2.default.PropTypes.string
+  googlePlacesLibraryURL: _react2.default.PropTypes.string,
+  componentRestrictions: _react2.default.PropTypes.shape({
+    country: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)
+  })
 };
 
 exports.default = LocationAutocomplete;
