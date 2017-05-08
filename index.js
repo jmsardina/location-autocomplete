@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -148,14 +152,14 @@ LocationAutocomplete.defaultProps = {
 };
 
 LocationAutocomplete.propTypes = {
-  targetArea: _react2.default.PropTypes.string,
-  locationType: _react2.default.PropTypes.string,
-  onChange: _react2.default.PropTypes.func.isRequired,
-  onDropdownSelect: _react2.default.PropTypes.func.isRequired,
-  googleAPIKey: _react2.default.PropTypes.string,
-  googlePlacesLibraryURL: _react2.default.PropTypes.string,
-  componentRestrictions: _react2.default.PropTypes.shape({
-    country: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)
+  targetArea: _propTypes2.default.string,
+  locationType: _propTypes2.default.string,
+  onChange: _propTypes2.default.func.isRequired,
+  onDropdownSelect: _propTypes2.default.func.isRequired,
+  googleAPIKey: _propTypes2.default.string,
+  googlePlacesLibraryURL: _propTypes2.default.string,
+  componentRestrictions: _propTypes2.default.shape({
+    country: _propTypes2.default.arrayOf(_propTypes2.default.string)
   })
 };
 

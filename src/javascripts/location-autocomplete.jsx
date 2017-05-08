@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 /* global google */
 
 class LocationAutocomplete extends React.Component {
@@ -100,14 +101,14 @@ LocationAutocomplete.defaultProps = {
 };
 
 LocationAutocomplete.propTypes = {
-  targetArea: React.PropTypes.string,
-  locationType: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired,
-  onDropdownSelect: React.PropTypes.func.isRequired,
-  googleAPIKey: React.PropTypes.string,
-  googlePlacesLibraryURL: React.PropTypes.string,
-  componentRestrictions: React.PropTypes.shape({
-    country: React.PropTypes.arrayOf(React.PropTypes.string)
+  targetArea: PropTypes.string,
+  locationType: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onDropdownSelect: PropTypes.func.isRequired,
+  googleAPIKey: PropTypes.string,
+  googlePlacesLibraryURL: PropTypes.string,
+  componentRestrictions: PropTypes.shape({
+    country: PropTypes.arrayOf(PropTypes.string)
   })
 };
 
