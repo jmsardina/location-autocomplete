@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: [
     './src/javascripts/polyfill.js',
@@ -5,7 +7,7 @@ module.exports = {
     './src/javascripts/index.jsx'
   ],
   output: {
-    path: "./",
+    path: path.resolve(__dirname, 'dist'),
     filename: "bundle.js"
   },
   module: {

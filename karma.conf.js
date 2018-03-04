@@ -39,7 +39,7 @@ module.exports = function(config) {
                     loader: 'babel-loader'
                 },
                 {
-                    test: /\.json$/, loader: 'json'
+                    test: /\.json$/, loader: 'json-loader'
                 }
             ]
         },

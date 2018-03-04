@@ -40,7 +40,7 @@ var LocationAutocomplete = function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
-      var libraryScript = document.getElementById('location-autocomplete-library');
+      var libraryScript = this.existingLibraryScript;
 
       if (this.libraryHasLoaded) {
         this.initAutocomplete();
@@ -141,6 +141,11 @@ var LocationAutocomplete = function (_React$Component) {
         obj[key] = _this6.props[key];
         return obj;
       }, {});
+    }
+  }, {
+    key: 'existingLibraryScript',
+    get: function get() {
+      return document.getElementById('location-autocomplete-library') || document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]')[0];
     }
   }]);
 
