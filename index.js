@@ -18,6 +18,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -116,31 +118,28 @@ var LocationAutocomplete = function (_React$Component) {
     value: function render() {
       var _this5 = this;
 
+      /* eslint-disable no-unused-vars */
+      var _props = this.props,
+          googleAPIKey = _props.googleAPIKey,
+          googlePlacesLibraryURL = _props.googlePlacesLibraryURL,
+          onDropdownSelect = _props.onDropdownSelect,
+          locationType = _props.locationType,
+          targetArea = _props.targetArea,
+          componentRestrictions = _props.componentRestrictions,
+          props = _objectWithoutProperties(_props, ['googleAPIKey', 'googlePlacesLibraryURL', 'onDropdownSelect', 'locationType', 'targetArea', 'componentRestrictions']);
+      /* eslint-enable no-unused-vars */
+
       return _react2.default.createElement('input', _extends({
         type: 'text',
         ref: function ref(input) {
           _this5.input = input;
         }
-      }, this.filteredInputProps));
+      }, props));
     }
   }, {
     key: 'libraryHasLoaded',
     get: function get() {
       return typeof google !== 'undefined';
-    }
-  }, {
-    key: 'filteredInputProps',
-    get: function get() {
-      var _this6 = this;
-
-      var keysToOmit = ['googleAPIKey', 'googlePlacesLibraryURL', 'onDropdownSelect', 'locationType', 'targetArea', 'componentRestrictions'];
-
-      return Object.keys(this.props).filter(function (key) {
-        return !keysToOmit.includes(key);
-      }).reduce(function (obj, key) {
-        obj[key] = _this6.props[key];
-        return obj;
-      }, {});
     }
   }, {
     key: 'existingLibraryScript',

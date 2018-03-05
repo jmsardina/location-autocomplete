@@ -67,34 +67,28 @@ class LocationAutocomplete extends React.Component {
     return typeof google !== 'undefined';
   }
 
-  get filteredInputProps() {
-    const keysToOmit = [
-      'googleAPIKey',
-      'googlePlacesLibraryURL',
-      'onDropdownSelect',
-      'locationType',
-      'targetArea',
-      'componentRestrictions'
-    ];
-
-    return Object.keys(this.props)
-      .filter(key => !keysToOmit.includes(key))
-      .reduce((obj, key) => {
-        obj[key] = this.props[key];
-        return obj;
-      }, {});
-  }
-
   get existingLibraryScript() {
     return document.getElementById('location-autocomplete-library') || document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]')[0];
   }
 
   render() {
+    /* eslint-disable no-unused-vars */
+    const {
+      googleAPIKey,
+      googlePlacesLibraryURL,
+      onDropdownSelect,
+      locationType,
+      targetArea,
+      componentRestrictions,
+      ...props
+    } = this.props;
+    /* eslint-enable no-unused-vars */
+
     return (
       <input
         type='text'
         ref={(input) => { this.input = input; }}
-        {...this.filteredInputProps}
+        {...props}
       />
     );
   }
