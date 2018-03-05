@@ -26,8 +26,8 @@ describe('<LocationAutocomplete />', function() {
 
   afterEach(function() {
     window.google = undefined;
-    const library = document.getElementById('location-autocomplete-library');
-    if (library) { library.remove(); }
+    const libraries = document.querySelectorAll('#location-autocomplete-library');
+    libraries.forEach(function(library) { document.head.removeChild(library); });
   });
 
   it('renders the value', function() {
@@ -91,6 +91,27 @@ describe('<LocationAutocomplete />', function() {
       this.render();
 
       expect(document.querySelectorAll('#location-autocomplete-library').length).toEqual(1);
+    });
+  });
+
+  describe('when the Google Maps library is directly added to the DOM', function() {
+    beforeEach(function() {
+      const script = document.createElement('script');
+      script.id = 'test-script';
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=someapikeyhere';
+
+      document.head.append(script);
+    });
+
+    afterEach(function() {
+      document.head.removeChild(document.getElementById('test-script'));
+    });
+
+    it('does not add the library script again', function() {
+      spyOn(LocationAutocomplete.prototype, 'initAutocomplete');
+      this.render();
+
+      expect(document.getElementById('location-autocomplete-library')).toEqual(null);
     });
   });
 });

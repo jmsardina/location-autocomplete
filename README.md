@@ -6,7 +6,10 @@ LocationAutocomplete is a tested React component that introduces an input field 
   - [x] bias suggestions by "target area" or by current location (without restricting)
   - [x] provide suggestions by location type
   - [x] restrict results to up to five countries
-- allows multiple instances to be used on single page, without importing autocomplete library multiple times
+- does not import autocomplete library if has already been imported by a third party.  Note: Other libraries may still insert the autocomplete library afterwards, which will trigger the following warning:
+```
+You have included the Google Maps API multiple times on this page. This may cause unexpected errors.
+```
 
 ### Usage:
 Install the package:

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class LocationAutocomplete extends React.Component {
   componentDidMount() {
-    const libraryScript = document.getElementById('location-autocomplete-library');
+    const libraryScript = this.existingLibraryScript;
 
     if (this.libraryHasLoaded) {
       this.initAutocomplete();
@@ -83,6 +83,10 @@ class LocationAutocomplete extends React.Component {
         obj[key] = this.props[key];
         return obj;
       }, {});
+  }
+
+  get existingLibraryScript() {
+    return document.getElementById('location-autocomplete-library') || document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]')[0];
   }
 
   render() {
