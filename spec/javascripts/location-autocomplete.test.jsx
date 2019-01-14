@@ -6,23 +6,23 @@ import LocationAutocomplete from '../../src/javascripts/location-autocomplete.js
 import { mount } from 'enzyme';
 
 describe('<LocationAutocomplete />', function() {
-  beforeEach(function() {
-    this.handleChange = () => {};
-    this.onDropdownSelect = () => {};
+  let wrapper;
+  let inputField;
+  const handleChange = jest.fn();
+  const onDropdownSelect = jest.fn();
 
-    this.render = function() {
-      this.wrapper = mount(
-        <LocationAutocomplete
-          value='some value'
-          onChange={this.handleChange}
-          onDropdownSelect={this.onDropdownSelect}
-          googleAPIKey='someKey'
-        />
-      );
+  const render = function() {
+    wrapper = mount(
+      <LocationAutocomplete
+        value='some value'
+        onChange={handleChange}
+        onDropdownSelect={onDropdownSelect}
+        googleAPIKey='someKey'
+      />
+    );
 
-      this.inputField = this.wrapper.find('input');
-    };
-  });
+    inputField = wrapper.find('input');
+  };
 
   afterEach(function() {
     window.google = undefined;
@@ -31,17 +31,16 @@ describe('<LocationAutocomplete />', function() {
   });
 
   it('renders the value', function() {
-    this.render();
-    expect(this.inputField.props().value).toEqual('some value');
+    render();
+    expect(inputField.props().value).toEqual('some value');
   });
 
   describe('when autocomplete library is not available', function() {
     it('does not break the input field', function() {
-      spyOn(this, 'handleChange');
-      this.render();
-      this.wrapper.find('input').simulate('change');
+      render();
+      wrapper.find('input').simulate('change');
 
-      expect(this.handleChange).toHaveBeenCalled();
+      expect(handleChange).toHaveBeenCalled();
     });
   });
 
@@ -59,7 +58,7 @@ describe('<LocationAutocomplete />', function() {
     });
 
     it('does not import the library again', function() {
-      this.render();
+      render();
 
       expect(document.getElementById('location-autocomplete-library')).toEqual(null);
     });
@@ -72,8 +71,8 @@ describe('<LocationAutocomplete />', function() {
         const wrapper = mount(
           <LocationAutocomplete
             locationType='(regions)'
-            onChange={this.handleChange}
-            onDropdownSelect={this.onDropdownSelect}
+            onChange={handleChange}
+            onDropdownSelect={onDropdownSelect}
             googleAPIKey='someKey'
           />
         );
@@ -87,8 +86,8 @@ describe('<LocationAutocomplete />', function() {
 
   describe('when rendering multiple instances of LocationAutocomplete', function() {
     it('loads the autocomplete library only once', function() {
-      this.render();
-      this.render();
+      render();
+      render();
 
       expect(document.querySelectorAll('#location-autocomplete-library').length).toEqual(1);
     });
@@ -109,7 +108,7 @@ describe('<LocationAutocomplete />', function() {
 
     it('does not add the library script again', function() {
       spyOn(LocationAutocomplete.prototype, 'initAutocomplete');
-      this.render();
+      render();
 
       expect(document.getElementById('location-autocomplete-library')).toEqual(null);
     });
