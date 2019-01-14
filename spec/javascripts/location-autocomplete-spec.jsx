@@ -1,9 +1,14 @@
 /* global describe:false, it:false, spyOn:false, expect:false, beforeEach:false, afterEach: false, google */
 /* eslint-disable no-unused-vars*/
 import React from 'react';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
 import LocationAutocomplete from '../../src/javascripts/location-autocomplete.jsx';
 /* eslint-enable no-unused-vars*/
 import { mount } from 'enzyme';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<LocationAutocomplete />', function() {
   beforeEach(function() {
@@ -79,7 +84,7 @@ describe('<LocationAutocomplete />', function() {
         );
 
         expect(autocomplete).toHaveBeenCalledWith(
-          wrapper.find('input').node, { types: ['(regions)'] }
+          wrapper.find('input').getDOMNode(), { types: ['(regions)'] }
         );
       });
     });

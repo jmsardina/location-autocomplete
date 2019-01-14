@@ -35,7 +35,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "enzyme": "^2.8.2",
+    "enzyme": "^3.8.0",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
     "jasmine": "^2.5.3",
@@ -45,8 +45,10 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-webpack": "^2.0.2",
+    "react": "^16.0.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.5.4",
+    "react-dom": "^16.0.0",
     "webpack": "^2.7.0",
     "webpack-dev-server": "^2.9.7"
   },
@@ -54,6 +56,6 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
-    "react": "^15.5.4"
-  } 
+    "react": "^16.0.0"
+  }
 }
