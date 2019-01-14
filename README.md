@@ -1,3 +1,6 @@
+## Note
+This is a fork of jmsardina/location-autocomplete in order to make React a peer dependency.
+
 # Location Autocomplete
 LocationAutocomplete is a tested React component that introduces an input field with autocomplete functionality.  It leverages the Google Places API to provide a typeahead effect with address predictions, based on your established criteria.
 
