@@ -1,7 +1,7 @@
 /* global describe:false, it:false, spyOn:false, expect:false, beforeEach:false, afterEach: false, google */
 /* eslint-disable no-unused-vars*/
 import React from 'react';
-import LocationAutocomplete from '../../src/javascripts/location-autocomplete.jsx';
+import LocationAutocomplete from '.';
 /* eslint-enable no-unused-vars*/
 import { mount } from 'enzyme';
 

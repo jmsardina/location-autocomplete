@@ -4,12 +4,12 @@
   "description": "React location field component, wired with Google's API for autocomplete functionality.",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src/javascripts/location-autocomplete.jsx --out-file index.js",
-    "bundle": "webpack ./src/javascripts/index.jsx bundle.js",
+    "build": "./node_modules/.bin/babel src/location-autocomplete/index.jsx --out-file index.js",
+    "bundle": "webpack ./src/index.jsx bundle.js",
     "test": "jest",
     "serve": "node_modules/.bin/webpack-dev-server",
-    "lint": "./node_modules/.bin/eslint ./src/javascripts/** --ext .js --ext .jsx",
-    "lint:test": "./node_modules/.bin/eslint ./spec/javascripts/** --ext .js --ext .jsx",
+    "lint": "./node_modules/.bin/eslint ./src/** --ext .js --ext .jsx",
+    "lint:test": "./node_modules/.bin/eslint ./spec/** --ext .js --ext .jsx",
     "start": "./node_modules/.bin/webpack --config webpack.config.js --watch"
   },
   "author": "Jennifer Sardina <jenni.sardina@gmail.com>",
