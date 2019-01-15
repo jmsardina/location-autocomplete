@@ -78,7 +78,7 @@ describe('<LocationAutocomplete />', function() {
         );
 
         expect(autocomplete).toHaveBeenCalledWith(
-          wrapper.find('input').node, { types: ['(regions)'] }
+          wrapper.find('input').getDOMNode(), { types: ['(regions)'] }
         );
       });
     });
