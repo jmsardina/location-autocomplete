@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import LocationAutocomplete from './location-autocomplete.jsx';
+import LocationAutocomplete from './location-autocomplete';
 /* eslint-enable no-unused-vars */
 import ReactDOM from 'react-dom';
 

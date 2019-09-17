@@ -2,9 +2,9 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/javascripts/polyfill.js',
-    './src/javascripts/location-autocomplete.jsx',
-    './src/javascripts/index.jsx'
+    './src/polyfill.js',
+    './src/location-autocomplete/index.jsx',
+    './src/index.jsx'
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -22,5 +22,12 @@ module.exports = {
           }
       }
     ]
+  },
+  resolve: {
+    modules: [
+      path.resolve('./src'),
+      'node_modules'
+    ],
+    extensions: ['.js', '.jsx']
   }
 }
